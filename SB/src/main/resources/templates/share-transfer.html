@@ -1,0 +1,2145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Share Transfer
+    </title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+
+    <style>
+
+
+        body{
+
+            background:#f4f7fb;
+
+            font-family:Arial, sans-serif;
+
+            color:#243b53;
+
+        }
+
+
+
+        .container-fluid{
+
+            padding:15px 20px;
+
+        }
+
+
+
+
+        .page-title{
+
+            font-size:24px;
+
+            font-weight:bold;
+
+            color:#0b5fa5;
+
+            margin-bottom:5px;
+
+        }
+
+
+
+        .sub-title{
+
+            font-size:13px;
+
+            color:#555;
+
+            margin-bottom:15px;
+
+        }
+
+
+
+
+        .card{
+
+            border:1px solid #d8e2ef;
+
+            border-radius:6px;
+
+            margin-bottom:10px;
+
+            box-shadow:0 2px 5px rgba(0,0,0,.08);
+
+        }
+
+
+
+        .card-header{
+
+            font-weight:bold;
+
+            padding:8px 12px;
+
+            font-size:14px;
+
+        }
+
+
+
+        .card-body{
+
+            padding:10px;
+
+        }
+
+
+
+
+        label{
+
+            font-size:12px;
+
+            font-weight:bold;
+
+            margin-bottom:3px;
+
+        }
+
+
+
+        .form-control,
+        .form-select{
+
+            height:32px;
+
+            font-size:13px;
+
+        }
+
+
+
+        .btn{
+
+            font-size:13px;
+
+            padding:5px 12px;
+
+        }
+
+
+
+        .info-title{
+
+            color:#0068b5;
+
+            font-weight:bold;
+
+            font-size:13px;
+
+            margin-bottom:6px;
+
+        }
+
+
+
+        .detail-box{
+
+            background:#f8fbff;
+
+            border:1px solid #d9e6f2;
+
+            padding:8px;
+
+            border-radius:5px;
+
+            font-size:12px;
+
+        }
+
+
+
+        .detail-box p{
+
+            margin:3px 0;
+
+        }
+
+
+
+        .badge-status{
+
+            background:#198754;
+
+            color:white;
+
+            padding:3px 7px;
+
+            border-radius:10px;
+
+        }
+
+
+
+        .balance-box{
+
+            background:#f1f5f9;
+
+            border:1px solid #ccd6e0;
+
+            height:32px;
+
+            padding:6px;
+
+            font-size:13px;
+
+        }
+
+
+
+        .section-blue{
+
+            background:#0d6efd;
+
+            color:white;
+
+        }
+
+
+        .section-red{
+
+            background:#dc3545;
+
+            color:white;
+
+        }
+
+
+        .section-green{
+
+            background:#198754;
+
+            color:white;
+
+        }
+
+
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container-fluid">
+
+
+
+    <!-- PAGE TITLE -->
+
+
+    <div class="page-title">
+
+        <i class="fa fa-arrow-right-arrow-left"></i>
+
+        Share Transfer
+
+
+    </div>
+
+    <div th:if="${error != null}"
+         class="alert alert-danger">
+
+        <i class="fa fa-circle-exclamation"></i>
+
+        <span th:text="${error}"></span>
+
+    </div>
+    <div th:if="${success != null}"
+               class="alert alert-success">
+
+    <i class="fa fa-check"></i>
+
+    <span th:text="${success}"></span>
+
+</div>
+
+    <div class="sub-title">
+
+        Transfer shares between Folio and/or BO (Demat/Remat)
+
+    </div>
+
+
+
+
+    <!-- ================= TRANSFER HEADER ================= -->
+
+
+
+    <div class="card">
+
+
+        <div class="card-header section-blue">
+
+            Transfer Information
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <div class="row">
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+                        Transfer Type *
+                    </label>
+
+
+                    <select class="form-select">
+
+
+                        <option>
+                            Folio to Folio
+                        </option>
+
+
+                        <option>
+                            Folio to BO
+                        </option>
+
+
+                        <option>
+                            BO to Folio
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+                        Transfer Date *
+                    </label>
+
+
+                    <input type="date"
+                           id="transferDate"
+                           class="form-control"
+                           readonly>
+
+
+                </div>
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+                        Transfer Ref No
+                    </label>
+
+
+                    <input class="form-control"
+                           value="Auto Generated"
+                           readonly>
+
+
+                </div>
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+                        Instrument No
+                    </label>
+
+
+                    <input class="form-control"
+                           placeholder="Optional">
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+
+
+
+            <div class="row mt-2">
+
+
+                <div class="col-md-12">
+
+
+                    <label>
+
+                        Particulars / Remarks *
+
+                    </label>
+
+
+                    <input class="form-control"
+
+                           value="Share transfer as per request">
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+    <h3 class="text-success">
+        <i class="fa fa-exchange"></i>
+        Share Transfer
+    </h3>
+
+
+
+
+    <!-- ================= DEBIT CREDIT START ================= -->
+
+
+    <div class="row">
+
+
+        <!-- DEBIT SIDE -->
+
+
+        <div class="col-md-6">
+
+
+            <div class="card">
+
+
+                <div class="card-header section-red">
+
+
+                    <i class="fa fa-circle-minus"></i>
+
+                    Debit Side (From)
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-md-6">
+
+
+                            <label>
+                                Account Type
+                            </label>
+
+
+                            <select class="form-select">
+
+
+                                <option>
+                                    Folio (Shareholder)
+                                </option>
+
+
+                                <option>
+                                    BO (Demat)
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <div class="col-md-6">
+
+
+                            <label>
+                                Folio / BO No *
+                            </label>
+
+
+
+                            <form th:action="@{/maker/share-transfer/search}"
+                                  method="post"
+                                  class="d-flex">
+
+                                <input type="hidden"
+                                       name="creditFolioBo"
+                                       th:value="${creditSearchFolio}">
+                                <input class="form-control"
+                                       name="folioBo"
+                                       th:value="${searchFolio}"
+                                       placeholder="Enter Folio No">
+
+
+                                <button class="btn btn-primary ms-1"
+                                        type="submit">
+
+
+                                    <i class="fa fa-search"></i>
+
+
+                                </button>
+
+
+                                <button class="btn btn-secondary ms-1"
+                                        type="button">
+
+
+                                    Clear
+
+
+                                </button>
+
+
+
+                            </form>
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- ================= DEBIT SHAREHOLDER DETAILS ================= -->
+
+
+                    <div class="mt-2">
+
+
+                        <div class="info-title">
+
+                            <i class="fa fa-user"></i>
+
+                            Shareholder Details
+
+
+                        </div>
+
+
+
+                        <div class="detail-box">
+
+
+                            <div class="row">
+
+
+
+                                <div class="col-md-6">
+
+
+                                    <p>
+
+                                        Name :
+
+                                        <span th:text="${shareholder != null ? shareholder.custName : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Father's Name :
+
+                                        <span>
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Customer Type :
+
+                                        <span
+                                                th:text="${
+                                        shareholder != null && shareholder.custType == 1 ? 'Individual'
+                                        : 'Corporate'
+                                        }">
+
+-
+
+                                         </span>
+
+                                    </p>
+
+
+
+                                    <p>
+
+                                        Phone :
+
+                                        <span th:text="${shareholder != null ? shareholder.phone : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+                                </div>
+
+
+
+
+
+                                <div class="col-md-6">
+
+
+                                    <p>
+
+                                        Folio No :
+
+                                        <span th:text="${shareholder != null ? shareholder.folioBo : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+                                    <p>
+
+                                        Status :
+
+                                        <span
+                                                th:text="${shareholder != null && shareholder.status == 1 ? 'Active' : 'Inactive'}">
+
+-
+
+</span>
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Lien Status :
+
+                                        <span
+                                                th:text="${shareholder != null && shareholder.isLien == 1 ? 'Yes' : 'No'}">
+
+-
+
+</span>
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Current Balance :
+
+                                        <span th:text="${shareholder != null ? shareholder.balance : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+                    <!-- TRANSFERABLE BALANCE -->
+
+
+                    <div class="row mt-2">
+
+
+                        <div class="col-md-12">
+
+
+                            <label>
+
+                                Transferable Balance
+
+                            </label>
+
+
+                            <input class="form-control"
+
+                                   readonly
+
+                                   th:value="${shareholder != null ? shareholder.balance : ''}">
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- ================= CREDIT SIDE ================= -->
+
+
+        <div class="col-md-6">
+
+
+            <div class="card">
+
+
+                <div class="card-header section-green">
+
+
+                    <i class="fa fa-circle-plus"></i>
+
+
+                    Credit Side (To)
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-md-6">
+
+
+                            <label>
+
+                                Account Type
+
+                            </label>
+
+
+                            <select class="form-select">
+
+
+                                <option>
+
+                                    Folio (Shareholder)
+
+                                </option>
+
+
+                                <option>
+
+                                    BO (Demat)
+
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="col-md-6">
+
+
+                            <label>
+
+                                Folio / BO No *
+
+                            </label>
+
+
+                            <div class="d-flex">
+
+
+                                <form th:action="@{/maker/share-transfer/credit-search}"
+                                      method="post"
+                                      class="d-flex">
+
+                                    <input type="hidden"
+                                           name="folioBo"
+                                           th:value="${searchFolio}">
+                                    <input class="form-control"
+
+                                           name="creditFolioBo"
+
+                                           placeholder="Enter Folio No"
+
+                                           th:value="${creditSearchFolio}">
+
+
+
+                                    <button class="btn btn-success ms-1"
+                                            type="submit">
+
+
+                                        <i class="fa fa-search"></i>
+
+
+                                    </button>
+
+
+
+                                    <button class="btn btn-secondary ms-1"
+                                            type="button">
+
+                                        Clear
+
+                                    </button>
+
+
+
+                                </form>
+
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div><!-- ================= CREDIT SHAREHOLDER DETAILS ================= -->
+
+
+                    <div class="mt-2">
+
+
+                        <div class="info-title">
+
+
+                            <i class="fa fa-user-check"></i>
+
+
+                            Shareholder Details
+
+
+                        </div>
+
+
+
+
+                        <div class="detail-box">
+
+
+                            <div class="row">
+
+
+
+                                <div class="col-md-6">
+
+
+
+                                    <p>
+
+                                        Name :
+
+                                        <span th:text="${creditShareholder != null ? creditShareholder.custName : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Father's Name :
+
+                                        <span>
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+                                    <p>
+
+                                        Customer Type :
+
+                                        <span
+                                                th:text="${
+    creditShareholder != null && creditShareholder.custType == 1
+    ? 'Individual'
+    : 'Corporate'
+}">
+
+-
+
+</span>
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Phone :
+
+                                        <span th:text="${creditShareholder != null ? creditShareholder.phone : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+                                </div>
+
+
+
+
+
+
+                                <div class="col-md-6">
+
+
+
+                                    <p>
+
+                                        Folio No :
+
+                                        <span th:text="${creditShareholder != null ? creditShareholder.folioBo : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Status :
+
+                                        <span
+                                                th:text="${creditShareholder != null && creditShareholder.status == 1 ? 'Active' : 'Inactive'}">
+
+-
+
+</span>
+
+                                    </p>
+
+
+
+
+                                    <p>
+
+                                        Lien Status :
+
+                                        <span
+                                                th:text="${creditShareholder != null && creditShareholder.isLien == 1 ? 'Yes' : 'No'}">
+
+-
+
+</span>
+
+                                    </p>
+
+
+
+                                    <p>
+
+                                        Current Balance :
+
+                                        <span th:text="${creditShareholder != null ? creditShareholder.balance : '-'}">
+
+-
+
+</span>
+
+
+                                    </p>
+
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                    <!-- CREDIT TRANSFERABLE BALANCE -->
+
+
+                    <div class="row mt-2">
+
+
+                        <div class="col-md-12">
+
+
+                            <label>
+
+                                Transferable Balance
+
+                            </label>
+
+
+                            <input class="form-control"
+
+                                   readonly
+
+                                   th:value="${creditShareholder != null ? creditShareholder.balance : ''}">
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+    <!-- CLOSE ROW -->
+
+
+
+
+
+
+    <!-- ================= TRANSFER INFORMATION ================= -->
+
+
+    <div class="card mt-2">
+
+
+        <div class="card-header section-blue">
+
+
+            <i class="fa fa-list"></i>
+
+
+            Transfer Information
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <div class="row">
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+
+                        No. of Shares *
+
+                    </label>
+
+
+                    <input class="form-control">
+
+
+                </div>
+
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+
+                        Share Type
+
+                    </label>
+
+
+                    <input class="form-control"
+
+                           value="Ordinary Share"
+
+                           readonly>
+
+
+                </div>
+
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+
+                        Market Lot
+
+                    </label>
+
+
+                    <input class="form-control"
+
+                           value="1"
+
+                           readonly>
+
+
+                </div>
+
+
+
+
+
+                <div class="col-md-3">
+
+
+                    <label>
+
+                        Equivalent Amount
+
+                    </label>
+
+
+                    <input class="form-control"
+
+                           value="0.00">
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div><!-- ================= IMPORTANT NOTES ================= -->
+
+
+    <div class="row mt-2">
+
+
+        <div class="col-md-7">
+
+
+            <div class="card">
+
+
+                <div class="card-body"
+                     style="background:#fff8e1;">
+
+
+
+                    <h6 style="color:#d97706;font-size:13px;">
+
+
+                        <i class="fa fa-circle-info"></i>
+
+                        Important Notes:
+
+
+                    </h6>
+
+
+
+
+                    <ol style="font-size:12px;margin-bottom:0;">
+
+
+                        <li>
+
+                            Transfer will not be allowed if source or destination account is under lien.
+
+                        </li>
+
+
+                        <li>
+
+                            Please verify shareholder details before saving.
+
+                        </li>
+
+
+                        <li>
+
+                            Transaction will be effective after checker approval.
+
+                        </li>
+
+
+                        <li>
+
+                            All transaction records will be maintained in audit history.
+
+                        </li>
+
+
+                    </ol>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+        <!-- BUTTON SECTION -->
+
+
+        <div class="col-md-5 d-flex align-items-center justify-content-end">
+
+
+            <form th:action="@{/maker/share-transfer/save}"
+                  method="post">
+
+
+                <input type="hidden"
+                       name="folioBo"
+                       th:value="${searchFolio}">
+
+
+                <input type="hidden"
+                       name="creditFolioBo"
+                       th:value="${creditSearchFolio}">
+
+
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+
+                    <i class="fa fa-save"></i>
+
+                    Save (Maker)
+
+
+                </button>
+
+
+            </form>
+
+
+
+
+            <button class="btn btn-secondary me-2">
+
+
+                <i class="fa fa-refresh"></i>
+
+
+                Reset
+
+
+            </button>
+
+
+
+
+
+            <a href="/dashboard?role=maker"
+               class="btn btn-outline-secondary">
+
+
+                <i class="fa fa-arrow-left"></i>
+
+
+                Back
+
+
+            </a>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+    <!-- ================= PREVIOUS TRANSACTION ================= -->
+
+
+    <div class="card mt-2">
+
+
+        <div class="card-header section-blue">
+
+
+            <i class="fa fa-clock-rotate-left"></i>
+
+
+            Previous Transactions (Last 5)
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+
+            <div class="table-responsive">
+
+
+
+                <table class="table table-bordered table-sm align-middle">
+
+
+                    <thead class="table-light">
+
+
+                    <tr>
+
+
+                        <th>
+
+                            SL
+
+                        </th>
+
+
+                        <th>
+
+                            Tr. ID
+
+                        </th>
+
+
+                        <th>
+
+                            Date
+
+                        </th>
+
+
+                        <th>
+
+                            Type
+
+                        </th>
+
+
+                        <th>
+
+                            From
+
+                        </th>
+
+
+                        <th>
+
+                            To
+
+                        </th>
+
+
+                        <th>
+
+                            Shares
+
+                        </th>
+
+
+                        <th>
+
+                            Status
+
+                        </th>
+
+
+                        <th>
+
+                            Maker
+
+                        </th>
+
+
+                        <th>
+
+                            Checker
+
+                        </th>
+
+
+                        <th>
+
+                            Action
+
+                        </th>
+
+
+                    </tr>
+
+
+
+                    </thead>
+
+
+
+
+                    <tbody>
+
+
+
+                    <tbody>
+
+                    <tr th:each="tr : ${transactions}">
+
+
+                        <td th:text="${tr.trId}">
+                        </td>
+
+
+                        <td th:text="${tr.trDate}">
+                        </td>
+
+
+                        <td th:text="${tr.trType}">
+                        </td>
+
+
+                        <td th:text="${tr.folioBo}">
+                        </td>
+
+
+                        <td th:text="${tr.contraAcc}">
+                        </td>
+
+
+                        <td th:text="${tr.drShare + tr.crShare}">
+                        </td>
+
+
+                        <td>
+
+<span class="badge bg-success">
+Approved
+</span>
+
+                        </td>
+
+
+                        <td th:text="${tr.userId}">
+                        </td>
+
+
+                        <td>
+
+                            <a th:href="@{'/maker/share-transfer/view/'+${tr.trId}}"
+                               class="btn btn-sm btn-primary">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+                    </tbody>
+
+                    <tr>
+
+
+                        <td>2</td>
+
+                        <td>TR202600122</td>
+
+                        <td>18-Aug-2026</td>
+
+                        <td>Folio to BO</td>
+
+                        <td>F123456</td>
+
+                        <td>BO123456789</td>
+
+                        <td>1000</td>
+
+
+                        <td>
+
+<span class="badge bg-success">
+
+Approved
+
+</span>
+
+
+                        </td>
+
+
+                        <td>
+
+                            user02
+
+                        </td>
+
+
+                        <td>
+
+                            checker01
+
+                        </td>
+
+
+                        <td>
+
+                            <button class="btn btn-sm btn-outline-primary">
+
+                                View
+
+                            </button>
+
+                        </td>
+
+
+                    </tr>
+
+
+
+
+                    </tbody>
+
+
+                </table>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div><!-- ================= DATA FLOW ================= -->
+
+
+    <div class="card mt-2">
+
+
+        <div class="card-header section-blue">
+
+
+            <i class="fa fa-diagram-project"></i>
+
+
+            Data Flow
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <div class="row text-center">
+
+
+
+                <div class="col-md-4">
+
+
+                    <div class="detail-box">
+
+
+                        <b>
+
+                            1. Source Account
+
+                        </b>
+
+
+                        <br>
+
+
+                        Debit Side
+
+
+                        <br>
+
+
+                        AccountShare
+
+
+                        <br>
+
+
+                        T_ACCOUNT_SHARE
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+                <div class="col-md-4">
+
+
+                    <div class="detail-box">
+
+
+                        <b>
+
+                            2. Transfer Request
+
+                        </b>
+
+
+                        <br>
+
+
+                        Create Transfer Request
+
+
+                        <br>
+
+
+                        Approval Queue
+
+
+                        <br>
+
+
+                        Audit History
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+                <div class="col-md-4">
+
+
+                    <div class="detail-box">
+
+
+                        <b>
+
+                            3. Destination Account
+
+                        </b>
+
+
+                        <br>
+
+
+                        Credit Side
+
+
+                        <br>
+
+
+                        AccountShare
+
+
+                        <br>
+
+
+                        Updated Balance
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+    <!-- ================= TRANSACTION MAPPING ================= -->
+
+
+    <div class="card mt-2">
+
+
+        <div class="card-header section-blue">
+
+
+            <i class="fa fa-table"></i>
+
+
+            Transaction Type Mapping
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+
+            <table class="table table-bordered table-sm">
+
+
+                <thead class="table-light">
+
+
+                <tr>
+
+
+                    <th>
+
+                        Transaction Type
+
+                    </th>
+
+
+                    <th>
+
+                        Debit
+
+                    </th>
+
+
+                    <th>
+
+                        Credit
+
+                    </th>
+
+
+                </tr>
+
+
+                </thead>
+
+
+
+                <tbody>
+
+
+
+                <tr>
+
+
+                    <td>
+
+                        Folio → Folio
+
+                    </td>
+
+
+                    <td>
+
+                        Shareholder Folio
+
+                    </td>
+
+
+                    <td>
+
+                        Shareholder Folio
+
+                    </td>
+
+
+                </tr>
+
+
+
+                <tr>
+
+
+                    <td>
+
+                        Folio → BO
+
+                    </td>
+
+
+                    <td>
+
+                        Shareholder Folio
+
+                    </td>
+
+
+                    <td>
+
+                        Demat BO
+
+                    </td>
+
+
+                </tr>
+
+
+
+                <tr>
+
+
+                    <td>
+
+                        BO → Folio
+
+                    </td>
+
+
+                    <td>
+
+                        Demat BO
+
+                    </td>
+
+
+                    <td>
+
+                        Shareholder Folio
+
+                    </td>
+
+
+                </tr>
+
+
+
+
+                </tbody>
+
+
+            </table>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================= APPROVAL FLOW ================= -->
+
+
+    <div class="card mt-2">
+
+
+        <div class="card-header section-blue">
+
+
+            <i class="fa fa-users"></i>
+
+
+            Maker Checker Workflow
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <div class="text-center"
+                 style="font-size:13px;">
+
+
+
+<span class="badge bg-primary">
+
+Maker
+
+</span>
+
+
+                &nbsp; → &nbsp;
+
+
+                <span class="badge bg-warning text-dark">
+
+Checker
+
+</span>
+
+
+                &nbsp; → &nbsp;
+
+
+                <span class="badge bg-success">
+
+Approved
+
+</span>
+
+
+
+                <br><br>
+
+
+
+                Maker creates transfer request.
+
+                <br>
+
+
+                Checker verifies shareholder information.
+
+                <br>
+
+
+                After approval transfer status becomes completed.
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================= AUTO DATE SCRIPT ================= -->
+
+
+    <script>
+
+
+        window.onload=function(){
+
+
+            let today=new Date();
+
+
+            let year=today.getFullYear();
+
+
+            let month=String(
+                today.getMonth()+1
+            ).padStart(2,'0');
+
+
+            let day=String(
+                today.getDate()
+            ).padStart(2,'0');
+
+
+
+            document.getElementById(
+                "transferDate"
+            ).value =
+                year+"-"+month+"-"+day;
+
+
+
+        };
+
+
+
+    </script>
+
+
+
+</div>
+
+</body>
+
+
+</html>

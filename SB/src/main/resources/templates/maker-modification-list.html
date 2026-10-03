@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Modification Request</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.min.css">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <style>
+
+
+        body{
+
+            background:#f5f7f7;
+
+            font-family:Arial, sans-serif;
+
+            padding:30px;
+
+        }
+
+
+
+        .card{
+
+            background:white;
+
+            border-radius:12px;
+
+            box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+            padding:25px;
+
+        }
+
+
+
+        .title{
+
+            color:#087443;
+
+            font-weight:bold;
+
+        }
+
+
+
+        .badge-return{
+
+            background:#ffc107;
+
+            color:#000;
+
+            padding:6px 10px;
+
+            border-radius:6px;
+
+            font-size:13px;
+
+            white-space:nowrap;
+
+        }
+
+
+
+        .remark-box{
+
+            background:#fff3cd;
+
+            padding:6px 10px;
+
+            border-radius:6px;
+
+            color:#664d03;
+
+            max-width:220px;
+
+            white-space:nowrap;
+
+            overflow:hidden;
+
+            text-overflow:ellipsis;
+
+        }
+
+
+
+        /* compact table like shareholder list */
+
+        .table{
+
+            font-size:14px;
+
+        }
+
+
+        .table th{
+
+            white-space:nowrap;
+
+            padding:8px !important;
+
+        }
+
+
+        .table td{
+
+            white-space:nowrap;
+
+            padding:8px !important;
+
+        }
+
+
+        .btn-sm{
+
+            padding:4px 8px;
+
+            font-size:13px;
+
+        }
+
+
+        .dataTables_wrapper{
+
+            font-size:14px;
+
+        }
+
+
+
+    </style>
+
+
+</head>
+
+
+
+
+<body>
+
+
+
+<div class="container-fluid">
+
+
+
+    <div class="card">
+
+
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+
+            <h2 class="title mb-0">
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                Returned Modification Request
+
+            </h2>
+
+
+
+            <a href="/dashboard?role=maker"
+               class="btn btn-secondary btn-sm">
+
+
+                <i class="fa fa-home"></i>
+
+                Back Dashboard
+
+
+            </a>
+
+
+
+        </div>
+
+
+
+
+
+        <div th:if="${#lists.isEmpty(requests)}"
+
+             class="alert alert-info">
+
+
+            <i class="fa fa-info-circle"></i>
+
+            No modification request found.
+
+
+        </div>
+
+
+
+
+
+
+        <div class="table-responsive"
+
+             th:if="${!#lists.isEmpty(requests)}">
+
+
+
+
+
+            <table id="modificationTable"
+                   class="table table-bordered table-striped align-middle">
+
+
+
+                <thead class="table-dark">
+
+
+                <tr>
+
+
+                    <th>
+                        Request ID
+                    </th>
+
+
+                    <th>
+                        OID
+                    </th>
+
+
+                    <th>
+                        Customer Name
+                    </th>
+
+
+                    <th>
+                        Phone
+                    </th>
+
+
+                    <th>
+                        Status
+                    </th>
+
+
+                    <th>
+                        Checker Remark
+                    </th>
+
+
+                    <th>
+                        Action
+                    </th>
+
+
+                </tr>
+
+
+                </thead>
+
+
+
+
+
+
+                <tbody>
+
+
+                <tr th:each="req:${requests}">
+
+
+                    <td th:text="${req.requestId}">
+
+                    </td>
+
+
+
+
+                    <td th:text="${req.entityId}">
+
+                    </td>
+
+
+
+
+
+                    <td th:text="${req.customerName}">
+
+                    </td>
+
+
+
+
+
+                    <td th:text="${req.phone}">
+
+                    </td>
+
+
+
+
+
+                    <td>
+
+
+                        <span class="badge-return"
+
+                              th:text="${req.status}">
+
+
+                            RETURNED_FOR_MODIFICATION
+
+
+                        </span>
+
+
+                    </td>
+
+
+
+
+
+                    <td>
+
+
+                        <div class="remark-box"
+
+                             th:text="${req.remark}">
+
+
+                            Checker remark
+
+
+                        </div>
+
+
+                    </td>
+
+
+
+
+
+                    <td>
+
+
+                        <a th:href="@{/maker/edit/{id}(id=${req.requestId})}"
+
+                           class="btn btn-primary btn-sm">
+
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+
+                        </a>
+
+
+                    </td>
+
+
+
+
+
+                </tr>
+
+
+                </tbody>
+
+
+
+            </table>
+
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+
+
+
+
+
+<script>
+
+
+    $(document).ready(function(){
+
+
+        $('#modificationTable').DataTable({
+
+
+            pageLength:10,
+
+
+            lengthMenu:[
+
+                10,
+
+                25,
+
+                50,
+
+                100
+
+            ],
+
+
+            searching:true,
+
+
+            ordering:true,
+
+
+            autoWidth:false
+
+
+        });
+
+
+
+    });
+
+
+</script>
+
+
+
+
+</body>
+
+
+</html>

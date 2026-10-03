@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Create Shareholder</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+
+    <style>
+
+
+        body{
+
+            background:#f5f7f8;
+
+            font-size:12px;
+
+        }
+
+
+
+        .container{
+
+            max-width:1200px;
+
+            margin-top:15px;
+
+        }
+
+
+
+        .card{
+
+            border-radius:10px;
+
+            box-shadow:0 3px 10px #ccc;
+
+            margin-bottom:10px;
+
+        }
+
+
+
+        .card-header{
+
+            padding:8px 12px;
+
+        }
+
+
+
+        .card-body{
+
+            padding:12px;
+
+        }
+
+
+
+        .section-title{
+
+            background:#198754;
+
+            color:white;
+
+            font-weight:bold;
+
+            padding:6px 10px;
+
+            border-radius:5px;
+
+            font-size:14px;
+
+            margin-bottom:8px;
+
+        }
+
+        .section-title-gray{
+
+            background:#6c757d;
+
+            color:white;
+
+            font-weight:bold;
+
+            padding:6px 10px;
+
+            border-radius:5px;
+
+            font-size:14px;
+
+            margin-bottom:8px;
+
+        }
+
+        label{
+
+            font-size:12px;
+
+            font-weight:600;
+
+            margin-bottom:3px;
+
+        }
+
+
+
+        .form-control,
+        .form-select{
+
+            height:30px;
+
+            font-size:12px;
+
+            padding:3px 8px;
+
+        }
+
+
+
+        .row{
+
+            margin-bottom:5px;
+
+        }
+
+
+
+        .btn{
+
+            font-size:12px;
+
+            padding:5px 12px;
+
+        }
+
+        .required{
+            color:red;
+        }
+
+    </style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+
+    <div class="card">
+
+
+        <div class="card-header bg-success text-white">
+
+
+            <h5 class="mb-0">
+
+                <i class="fa fa-user-plus"></i>
+
+                Create Shareholder
+
+            </h5>
+
+
+        </div>
+
+
+
+
+
+        <form th:action="@{/shareholders/save}"
+              th:object="${form}"
+              method="post">
+
+
+
+            <div class="card-body">
+
+
+
+                <!-- ================= BASIC INFORMATION ================= -->
+
+
+                <div class="section-title">
+
+                    Basic Information
+
+                </div>
+
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6">
+
+                        <label>
+                            Folio BO Number <span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{folioBo}"
+                               required>
+
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+
+                        <label>
+                            Customer Name<span class="required">*</span>
+                        </label>
+
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{custName}">
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6">
+
+                        <label>
+                            Customer Type<span class="required">*</span>
+                        </label>
+
+
+                        <select class="form-select"
+                                th:field="*{custType}">
+
+
+                            <option value="">
+                                Select
+                            </option>
+
+
+                            <option value="1">
+                                Individual
+                            </option>
+
+
+                            <option value="2">
+                                Institution
+                            </option>
+
+
+                            <option value="3">
+                                Corporate
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Citizen Type<span class="required">*</span>
+                        </label>
+
+
+                        <select class="form-select"
+                                th:field="*{citizenType}">
+
+
+                            <option value="">
+                                Select
+                            </option>
+
+
+                            <option value="1">
+                                Local
+                            </option>
+
+
+                            <option value="2">
+                                Foreign
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Resident Type<span class="required">*</span>
+                        </label>
+
+
+                        <select class="form-select"
+                                th:field="*{residentType}"
+                                required>
+
+
+                            <option value="">
+                                Select Resident Type
+                            </option>
+
+
+                            <option value="Resident">
+                                Resident
+                            </option>
+
+
+                            <option value="Non Resident">
+                                Non Resident
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Phone<span class="required">*</span>
+                        </label>
+
+
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{phone}">
+
+
+                    </div>
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Email<span class="required">*</span>
+                        </label>
+
+
+                        <input type="email"
+                               class="form-control"
+                               th:field="*{email}">
+
+
+                    </div><!-- ================= ACCOUNT DETAILS ================= -->
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            TIN No
+                        </label>
+
+
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{tinNo}">
+
+
+                    </div>
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            ICB Code
+                        </label>
+
+
+                        <input type="number"
+                               class="form-control"
+                               th:field="*{icbCode}">
+
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Shares
+                        </label>
+
+
+                        <input type="number"
+                               class="form-control"
+                               th:field="*{shares}">
+
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Balance
+                        </label>
+
+
+                        <input type="number"
+                               class="form-control"
+                               th:field="*{balance}">
+
+
+                    </div>
+
+
+
+
+
+                    <div class="col-md-6">
+
+
+                        <label>
+                            Employee
+                        </label>
+
+
+                        <select class="form-select"
+                                th:field="*{isEmployee}">
+
+
+                            <option value="0">
+                                No
+                            </option>
+
+
+                            <option value="1">
+                                Yes
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+                <!-- ================================================= -->
+                <!-- ADDRESS + BANK SIDE BY SIDE -->
+                <!-- ================================================= -->
+
+
+                <div class="row mt-2">
+
+
+
+                    <!-- ================= ADDRESS ================= -->
+
+
+                    <div class="col-md-6">
+
+
+                        <div class="card">
+
+
+                            <div class="card-body">
+
+
+                                <div class="section-title-gray">
+
+                                    <i class="fa fa-location-dot"></i>
+
+                                    Address Information
+
+                                </div>
+
+
+
+                                <div class="row">
+
+
+
+                                    <div class="col-md-12">
+
+                                        <label>
+                                            Address 1<span class="required">*</span>
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="add1">
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12 mt-2">
+
+                                        <label>
+                                            Address 2
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="add2">
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12 mt-2">
+
+                                        <label>
+                                            Address 3
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="add3">
+
+
+                                    </div>
+
+
+
+                                    <div class="col-md-12 mt-2">
+
+                                        <label>
+                                            Country Name<span class="required">*</span>
+                                        </label>
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="countryName">
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <!-- ================= BANK ================= -->
+
+
+                    <div class="col-md-6">
+
+
+                        <div class="card">
+
+
+                            <div class="card-body">
+
+
+                                <div class="section-title-gray">
+
+
+                                    <i class="fa fa-building-columns"></i>
+
+                                    Bank Information
+
+
+                                </div>
+
+
+
+
+
+                                <div class="row">
+
+
+
+                                    <div class="col-md-12">
+
+
+                                        <label>
+                                            Bank Name
+                                        </label>
+
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="bankName">
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12 mt-2">
+
+
+                                        <label>
+                                            Account Number
+                                        </label>
+
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="accNo">
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12 mt-2">
+
+
+                                        <label>
+                                            Branch Name
+                                        </label>
+
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="branchName">
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-12 mt-2">
+
+
+                                        <label>
+                                            Routing Number
+                                        </label>
+
+
+                                        <input type="text"
+                                               class="form-control"
+                                               name="routingNo">
+
+
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div><!-- ================= BUTTON SECTION ================= -->
+
+
+                <div class="text-center mt-3 mb-2">
+
+
+                    <button type="submit"
+                            class="btn btn-success">
+
+                        <i class="fa fa-save"></i>
+
+                        Submit
+
+                    </button>
+
+
+
+
+                    <a href="/dashboard?role=maker"
+                       class="btn btn-secondary ms-2">
+
+
+                        <i class="fa fa-home"></i>
+
+                        Back Dashboard
+
+
+                    </a>
+
+
+
+
+
+                    <button type="reset"
+                            class="btn btn-danger ms-2">
+
+
+                        <i class="fa fa-times"></i>
+
+                        Reset
+
+
+                    </button>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </form>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+
+</script>
+
+
+
+</body>
+
+
+</html>
